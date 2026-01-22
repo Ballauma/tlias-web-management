@@ -23,7 +23,9 @@ public class Result {
     }
 
     public static Result success(Object data) {
-        Result result = success();
+        Result result = new Result();
+        result.code = 1;
+        result.msg = "操作成功";
         result.data = data;
         return result;
     }

@@ -3,6 +3,7 @@ package com.xjh.controller;
 import com.xjh.pojo.Dept;
 import com.xjh.pojo.Result;
 import com.xjh.service.impl.DeptServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * @author Ballauma
  */
+@Slf4j
 @RestController
 @RequestMapping("/depts")
 public class DeptController {
@@ -21,27 +23,20 @@ public class DeptController {
     //    @RequestMapping("/depts")
     @GetMapping
     public Result list() {
-        System.out.println("查询全部部门数据");
+//        System.out.println("查询全部部门数据");
+        log.info("查询全部部门数据");
         List<Dept> list = deptService.findAll();
         return Result.success(list);
     }
 
-//    @DeleteMapping("/depts")
-//    public Result delete(HttpServletRequest request){
-//        System.out.println("删除对应部门数据");
-//        String idStr = request.getParameter("id");
-//        Integer id = Integer.valueOf(idStr);
-//        deptService.deleteById(id);
-//        return Result.success();
-//    }
-
     /**
-     * @RequestParam 注解一旦使用则必须传递参数，否则报错
-     * 如果前端传递参数名和服务器端方法名一致则@RequestParam可以省略
+     *  @RequestParam 注解一旦使用则必须传递参数，否则报错
+     * 如果前端传递参数名和服务器端方法名一致则 @RequestParam 可以省略
      */
     @DeleteMapping
     public Result delete(@RequestParam("id") Integer id) {
-        System.out.println("删除对应部门数据");
+//        System.out.println("删除对应部门数据");
+        log.info("删除对应部门数据");
         deptService.deleteById(id);
         return Result.success();
     }
@@ -51,7 +46,8 @@ public class DeptController {
      */
     @PostMapping
     public Result add(@RequestBody Dept dept) {
-        System.out.println("新增部门" + dept);
+//        System.out.println("新增部门" + dept);
+        log.info("新增部门{}", dept);
         deptService.addDept(dept);
         return Result.success();
     }

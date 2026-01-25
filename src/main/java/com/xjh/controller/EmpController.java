@@ -1,14 +1,13 @@
 package com.xjh.controller;
 
+import com.xjh.pojo.Emp;
 import com.xjh.pojo.EmpQueryParam;
 import com.xjh.pojo.Result;
 import com.xjh.pojo.pageResult;
 import com.xjh.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Ballauma
@@ -28,5 +27,15 @@ public class EmpController {
         pageResult pageResult = empService.page(empQueryParam);
 
         return Result.success(pageResult);
+    }
+
+    /**
+     * 新增员工
+     */
+    @PostMapping
+    public Result save(@RequestBody Emp emp) {
+        log.info("新增员工{}", emp);
+        empService.save(emp);
+        return Result.success();
     }
 }

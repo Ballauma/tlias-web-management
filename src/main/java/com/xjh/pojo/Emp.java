@@ -4,7 +4,11 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
+/**
+ * @author Ballauma
+ */
 @Data
 public class Emp {
     private Integer id;
@@ -36,4 +40,7 @@ public class Emp {
 
     //封装部门名称
     private String deptName;
+
+    //封装员工工作经验
+    private List<EmpExpr> exprList;
 }

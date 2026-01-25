@@ -29,4 +29,6 @@ public interface EmpMapper {
      * 返回所有emp数据
      */
     public List<Emp> list(EmpQueryParam empQueryParam);
+
+    void save(Emp emp);
 }

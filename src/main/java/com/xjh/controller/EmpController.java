@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author Ballauma
  * 员工控制器
@@ -36,6 +38,22 @@ public class EmpController {
     public Result save(@RequestBody Emp emp) {
         log.info("新增员工{}", emp);
         empService.save(emp);
+        return Result.success();
+    }
+
+    /**
+     * 删除员工
+     */
+    @DeleteMapping
+    public Result delete(@RequestParam List<Integer> ids) {
+        log.info("删除员工{}", ids);
+        empService.delete(ids);
+        return Result.success();
+    }
+
+    @GetMapping
+    public Result selectById(){
+        empService.selectById();
         return Result.success();
     }
 }

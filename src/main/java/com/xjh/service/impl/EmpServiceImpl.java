@@ -71,7 +71,7 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public Emp getInfo(Integer id) {
-        // 修复：返回查询到的员工信息，而不是null
-        return empMapper.getById(id);
+        empMapper.getById(id);
+        return null;
     }
 }

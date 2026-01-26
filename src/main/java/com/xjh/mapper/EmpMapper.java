@@ -35,10 +35,5 @@ public interface EmpMapper {
 
     void deleteByIds(List<Integer> ids);
 
-    /**
-     * 根据ID查询员工信息
-     * 添加@Select注解指定SQL查询语句
-     */
-
     Emp getById(Integer id);
 }

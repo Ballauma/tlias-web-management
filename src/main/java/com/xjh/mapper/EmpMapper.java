@@ -3,6 +3,7 @@ package com.xjh.mapper;
 import com.xjh.pojo.Emp;
 import com.xjh.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -35,5 +36,10 @@ public interface EmpMapper {
 
     void deleteByIds(List<Integer> ids);
 
+    /**
+     * 根据ID查询员工信息
+     * 添加@Select注解指定SQL查询语句
+     */
+    @Select("SELECT * FROM emp WHERE id = #{id}")
     Emp getById(Integer id);
 }

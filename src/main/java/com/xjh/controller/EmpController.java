@@ -32,6 +32,16 @@ public class EmpController {
     }
 
     /**
+     * 根据ID查询员工
+     */
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id) {
+        log.info("根据ID查询员工: {}", id);
+        Emp emp = empService.getById(id);
+        return Result.success(emp);
+    }
+
+    /**
      * 新增员工
      */
     @PostMapping
@@ -42,18 +52,12 @@ public class EmpController {
     }
 
     /**
-     * 删除员工
+     * 删除员工 - 使用查询参数，支持批量删除
      */
     @DeleteMapping
     public Result delete(@RequestParam List<Integer> ids) {
         log.info("删除员工{}", ids);
         empService.delete(ids);
-        return Result.success();
-    }
-
-    @GetMapping
-    public Result selectById(){
-        empService.selectById();
         return Result.success();
     }
 }

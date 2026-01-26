@@ -25,10 +25,15 @@ public interface EmpMapper {
 //    public List<Emp> list(Integer page, Integer pageSize);
 
     //-------基于PageHelper分页查询相关方法-------
+
     /**
      * 返回所有emp数据
      */
     public List<Emp> list(EmpQueryParam empQueryParam);
 
     void save(Emp emp);
+
+    void deleteByIds(List<Integer> ids);
+
+    Emp getById(Integer id);
 }

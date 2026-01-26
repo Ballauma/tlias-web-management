@@ -28,6 +28,17 @@ public class EmpServiceImpl implements EmpService {
     @Autowired
     private EmpExprMapper empExprMapper;
 
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(List<Integer> ids) {
+        // 删除员工信息
+        empMapper.deleteByIds(ids);
+        // 删除员工工作经历信息
+        empExprMapper.deleteByEmpIds(ids);
+    }
+
     @Override
     public pageResult page(EmpQueryParam empQueryParam) {
 
@@ -56,5 +67,11 @@ public class EmpServiceImpl implements EmpService {
             });
             empExprMapper.insertBatch(exprList);
         }
+    }
+
+    @Override
+    public Emp getInfo(Integer id) {
+        empMapper.getById(id);
+        return null;
     }
 }

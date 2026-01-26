@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,7 +28,6 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpExprMapper empExprMapper;
-
 
 
     @Override
@@ -61,17 +61,40 @@ public class EmpServiceImpl implements EmpService {
 
         //2.保存员工工作经历信息
         List<EmpExpr> exprList = emp.getExprList();
-        if (!CollectionUtils.isEmpty(exprList)){
-            exprList.forEach((expr)->{
+        if (!CollectionUtils.isEmpty(exprList)) {
+            exprList.forEach((expr) -> {
                 expr.setEmpId(emp.getId());
             });
             empExprMapper.insertBatch(exprList);
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void update(Emp emp) {
+        emp.setUpdateTime(LocalDateTime.now());
+        //根据id修改员工基本信息
+        empMapper.updateById(emp);
+
+
+        //1.先根据员工id删除现有工作经历
+        empExprMapper.deleteByEmpIds(Arrays.asList(emp.getId()));
+
+        //2.新增工作经历
+        List<EmpExpr> exprList = emp.getExprList();
+        if (!CollectionUtils.isEmpty(exprList)) {
+            exprList.forEach(list -> {
+                list.setEmpId(emp.getId());
+                empExprMapper.insertBatch(exprList);
+            });
+        }
+
+
+    }
+
     @Override
     public Emp getInfo(Integer id) {
-        empMapper.getById(id);
-        return null;
+        Emp emp = empMapper.getById(id);
+        return emp;
     }
 }

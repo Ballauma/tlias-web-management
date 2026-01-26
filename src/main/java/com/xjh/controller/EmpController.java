@@ -32,12 +32,12 @@ public class EmpController {
     }
 
     /**
-     * 根据ID查询员工
+     * 根据ID 查询员工
      */
     @GetMapping("/{id}")
-    public Result getById(@PathVariable Integer id) {
+    public Result getInfo(@PathVariable Integer id) {
         log.info("根据ID查询员工: {}", id);
-        Emp emp = empService.getById(id);
+        Emp emp = empService.getInfo(id);
         return Result.success(emp);
     }
 
@@ -58,6 +58,18 @@ public class EmpController {
     public Result delete(@RequestParam List<Integer> ids) {
         log.info("删除员工{}", ids);
         empService.delete(ids);
+        return Result.success();
+    }
+
+    /**
+     * 更新员工数据
+     * @param emp
+     * @return
+     */
+    @PutMapping
+    public Result update(@RequestBody Emp emp) {
+        empService.update(emp);
+
         return Result.success();
     }
 }

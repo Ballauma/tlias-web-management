@@ -7,7 +7,7 @@ import com.xjh.mapper.EmpMapper;
 import com.xjh.pojo.Emp;
 import com.xjh.pojo.EmpExpr;
 import com.xjh.pojo.EmpQueryParam;
-import com.xjh.pojo.pageResult;
+import com.xjh.pojo.PageResult;
 import com.xjh.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public pageResult page(EmpQueryParam empQueryParam) {
+    public PageResult page(EmpQueryParam empQueryParam) {
 
         PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
         // 执行查询
@@ -48,7 +48,7 @@ public class EmpServiceImpl implements EmpService {
 
         Page<Emp> p = (Page<Emp>) list;
 
-        return new pageResult<Emp>(p.getTotal(), p.getResult());
+        return new PageResult<Emp>(p.getTotal(), p.getResult());
     }
 
     @Transactional(rollbackFor = {Exception.class})

@@ -2,7 +2,7 @@ package com.xjh.service;
 
 import com.xjh.pojo.Emp;
 import com.xjh.pojo.EmpQueryParam;
-import com.xjh.pojo.pageResult;
+import com.xjh.pojo.PageResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface EmpService {
 
     void delete(List<Integer> ids);
 
-    pageResult page(EmpQueryParam empQueryParam);
+    PageResult page(EmpQueryParam empQueryParam);
 
     void save(Emp emp);
 

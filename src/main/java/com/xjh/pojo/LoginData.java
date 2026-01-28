@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * @author Ballauma
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class pageResult<T> {
-    private long total;
-    private List<T> rows;
+public class LoginData {
+    private Integer id;
+    private String username;
+    private String name;
+    private String token;
+
 }

@@ -1,6 +1,7 @@
 package com.xjh.service;
 
 import com.xjh.pojo.JobOption;
+import com.xjh.pojo.StudentOption;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface ReportService {
     JobOption getJobData();
 
     List<Map> getGenderData();
+
+    List<Map<String, Object>> getDegreeData();
+
+    StudentOption getStudentCountData();
 }

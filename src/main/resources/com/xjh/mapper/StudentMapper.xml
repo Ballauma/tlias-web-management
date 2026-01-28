@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xjh.mapper.StudentMapper">
+
+    <insert id="insert">
+        INSERT INTO student (name, no, gender, phone, id_card,
+                             is_college, address, degree, graduation_date, clazz_id)
+        VALUES (#{name}, #{no}, #{gender}, #{phone}, #{idCard},
+                #{isCollege}, #{address}, #{degree}, #{graduationDate}, #{clazzId})
+    </insert>
+    <update id="updateByPrimaryKey">
+        UPDATE student
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="no != null and no != ''">no = #{no},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="idCard != null and idCard != ''">id_card = #{idCard},</if>
+            <if test="isCollege != null">is_college = #{isCollege},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="degree != null">degree = #{degree},</if>
+            <if test="graduationDate != null">graduation_date = #{graduationDate},</if>
+            <if test="clazzId != null">clazz_id = #{clazzId},</if>
+            <if test="violationCount != null">violation_count = #{violationCount},</if>
+            <if test="violationScore != null">violation_score = #{violationScore},</if>
+            update_time = #{updateTime}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="findAll" resultType="com.xjh.pojo.Student">
+        SELECT s.*, c.name as clazzName
+        FROM student s
+        LEFT JOIN clazz c ON s.clazz_id = c.id
+        <where>
+            <if test="name != null and name != ''">
+                AND s.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="begin != null">
+                AND s.graduation_date &gt;= #{begin}
+            </if>
+            <if test="end != null">
+                AND s.graduation_date &lt;= #{end}
+            </if>
+        </where>
+        ORDER BY s.update_time DESC
+    </select>
+    <select id="selectByPrimaryKey" resultType="com.xjh.pojo.Student">
+        SELECT * FROM student WHERE id = #{id}
+    </select>
+    <select id="getDegreeData" resultType="java.util.Map">
+        SELECT case degree
+                   when 1 then '高中'
+                   when 2 then '大专'
+                   when 3 then '本科'
+                   when 4 then '硕士'
+                   when 5 then '博士'
+                   else '没写'
+                   end  as name,
+               COUNT(*) as value
+        FROM student
+        GROUP BY degree
+    </select>
+    <select id="getStudentCountData" resultType="java.util.Map">
+        SELECT c.name      as className,
+               COUNT(s.id) as studentCount
+        FROM student s
+                 LEFT JOIN clazz c ON s.clazz_id = c.id
+        GROUP BY c.id, c.name
+        ORDER BY studentCount DESC
+    </select>
+</mapper>

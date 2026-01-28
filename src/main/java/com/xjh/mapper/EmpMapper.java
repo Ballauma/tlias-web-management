@@ -4,6 +4,7 @@ import com.xjh.pojo.Emp;
 import com.xjh.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -46,4 +47,7 @@ public interface EmpMapper {
 
     @MapKey("name")
     List<Map> getGenderData();
+
+    @Select("select * from emp where username = #{username} and password = #{password}")
+    Emp selectByUsernameAndPassword(String username, String password);
 }

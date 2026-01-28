@@ -2,6 +2,7 @@ package com.xjh.controller;
 
 import com.xjh.pojo.JobOption;
 import com.xjh.pojo.Result;
+import com.xjh.pojo.StudentOption;
 import com.xjh.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,19 @@ public class ReportController {
     @GetMapping("/empGenderData")
     public Result getGenderData() {
         List<Map> list = reportService.getGenderData();
+        return Result.success(list);
+    }
+
+
+    @GetMapping("/studentDegreeData")
+    public Result getDegreeData() {
+        List<Map<String, Object>> list = reportService.getDegreeData();
+        return Result.success(list);
+    }
+
+    @GetMapping("/studentCountData")
+    public Result getStudentCountData() {
+        StudentOption list = reportService.getStudentCountData();
         return Result.success(list);
     }
 }

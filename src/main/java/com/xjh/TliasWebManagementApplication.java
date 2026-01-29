@@ -2,7 +2,12 @@ package com.xjh;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
+/**
+ * @author Ballauma
+ */
+@ServletComponentScan
 @SpringBootApplication
 public class TliasWebManagementApplication {
 

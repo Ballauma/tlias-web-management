@@ -1,6 +1,8 @@
 package com.xjh.filter;
 
+import com.xjh.utils.CurrentHolder;
 import com.xjh.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +35,10 @@ public class TokenFilter implements Filter {
             return;
         }
         try {
-            JwtUtils.parseJWT(token);
+            Claims claims = JwtUtils.parseJWT(token);
+            Integer empId = Integer.valueOf(claims.getId());
+            CurrentHolder.setCurrentId(empId);
+
         } catch (Exception e) {
             // token 解析失败 拒绝访问
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -42,5 +47,7 @@ public class TokenFilter implements Filter {
         }
         // 放行
         filterChain.doFilter(request, response);
+
+        CurrentHolder.remove();
     }
 }
